@@ -9,25 +9,15 @@
 // Input: nums = [3,30,34,5,9]
 // Output: "9534330"
 
-function transformToListOfSingleDigitNumbers(number) {
-  const myArray = [];
-  while (number !== 0) {
-    let elem = number % 10;
-    number = Math.floor(number / 10);
-    myArray.push(elem);
-  }
-
-  return myArray;
-}
-
 function largestNumber(arr) {
-  let myArray = [];
-  for (const elem of arr) {
-    myArray = [...myArray, ...transformToListOfSingleDigitNumbers(elem)];
-  }
-  myArray.sort((a, b) => b - a);
-  return myArray.join("");
+  arr.sort((a, b) => {
+    const str1 = a.toString();
+    const str2 = b.toString();
+    return str2 + str1 - (str1 + str2);
+  });
+  if (arr[0] === 0) return "0"; // nếu số lớn nhất đứng đầu mảng là 0 thì trả ra số không là được
+  return arr.join("");
 }
 
-console.log(largestNumber([10, 2]));
-console.log(largestNumber([3,30,34,5,9]));
+console.log(largestNumber([10, 2])); // "210"
+console.log(largestNumber([3, 30, 34, 5, 9])); // "9534330"
